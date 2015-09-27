@@ -34,6 +34,7 @@ group :development, :test do
   gem "byebug"
   gem "rspec-rails"
   gem "mail_safe"
+  gem "pry-rails"
 
   gem "rails_best_practices"
   gem "brakeman"

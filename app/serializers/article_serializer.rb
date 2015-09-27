@@ -1,7 +1,8 @@
 class ArticleSerializer < ApplicationSerializer
   attributes :title, :text, :name
+  has_many :comments, serializer: CommentSerializer
 
   def name
-    object.user.email
+    object.user.name
   end
 end
