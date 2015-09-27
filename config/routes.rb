@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :v1, defaults: { format: "json" } do
     resources :articles, except: [:edit, :update]
+    resources :dashboard, only: [:index]
 
     devise_scope :user do
       post "users/sign_in", to: 'sessions#create'
