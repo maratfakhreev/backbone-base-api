@@ -1,9 +1,9 @@
 class V1::ArticlesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:destroy, :create]
 
   def index
     @articles = Article.all
-    respond_with @articles, serializer: ArticleSerializer
+    respond_with @articles, each_serializer: ArticleSerializer
   end
 
   def show
@@ -13,12 +13,17 @@ class V1::ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
-    @article.destroy
-    respond_with status: 204
+    if @article.user == current_user
+      @article.destroy
+      respond_with status: 204
+    else
+      respond_with status: 401
+    end
   end
 
   def create
     @article = Article.new(article_params)
+    @article.user = current_user
     if @article.save
       respond_with status: 200
     else
@@ -29,6 +34,6 @@ class V1::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.permit(:title, :text)
+    params.permit(:id, :title, :text)
   end
 end
