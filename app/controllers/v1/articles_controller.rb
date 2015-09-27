@@ -3,12 +3,12 @@ class V1::ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
-    respond_with @articles, each_serializer: ArticleSerializer
+    respond_with @articles, each_serializer: ArticleExtendedSerializer
   end
 
   def show
     @article = Article.find(params[:id])
-    respond_with @article, serializer: ArticleSerializer
+    respond_with @article, serializer: ArticleExtendedSerializer
   end
 
   def destroy
