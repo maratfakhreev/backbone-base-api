@@ -5,4 +5,6 @@ class User < ActiveRecord::Base
     :recoverable, :trackable, :validatable
 
   has_many :articles
+
+  validates :name, presence: true
 end
