@@ -23,7 +23,7 @@ class V1::ArticlesController < ApplicationController
   def create
     article.user = current_user
     if article.save
-      respond_with status: 200
+      respond_with article, serializer: ArticleExtendedSerializer
     else
       respond_with status: 500
     end
