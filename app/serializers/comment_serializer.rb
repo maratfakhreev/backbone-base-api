@@ -1,11 +1,11 @@
 class CommentSerializer < ApplicationSerializer
-  attributes :id, :comment, :name, :avatar
+  attributes :id, :text, :name, :avatar
 
   def name
     object.user.name
   end
 
-  def comment
+  def text
     object.text
   end
 
