@@ -5,10 +5,6 @@ class CommentSerializer < ApplicationSerializer
     object.user.name
   end
 
-  def text
-    object.text
-  end
-
   def avatar
     object.user.avatar
   end

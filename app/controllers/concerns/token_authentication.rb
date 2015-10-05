@@ -15,6 +15,6 @@ module TokenAuthentication
   private
 
   def user_token
-    request.headers['X-AUTH-TOKEN'].presence || params['auth_token'].presence
+    request.headers["X-AUTH-TOKEN"].presence || params["auth_token"].presence
   end
 end

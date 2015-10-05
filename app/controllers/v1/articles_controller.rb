@@ -1,37 +1,39 @@
-class V1::ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: [:destroy, :create]
-  expose(:article, attributes: :article_params)
-  expose(:articles) { Article.with_users }
+module V1
+  class ArticlesController < ApplicationController
+    before_action :authenticate_user!, only: %i(destroy create)
+    expose(:article, attributes: :article_params)
+    expose(:articles) { Article.with_users }
 
-  def index
-    respond_with articles, each_serializer: ArticleExtendedSerializer
-  end
-
-  def show
-    respond_with article, serializer: ArticleExtendedSerializer
-  end
-
-  def destroy
-    if article.user == current_user
-      article.destroy
-      respond_with status: 204
-    else
-      respond_with status: 401
+    def index
+      respond_with articles, each_serializer: ArticleExtendedSerializer
     end
-  end
 
-  def create
-    article.user = current_user
-    if article.save
+    def show
       respond_with article, serializer: ArticleExtendedSerializer
-    else
-      respond_with status: 500
     end
-  end
 
-  private
+    def destroy
+      self.article = current_user.articles.find(params[:id])
 
-  def article_params
-    params.permit(:id, :title, :text)
+      if article
+        article.destroy
+        respond_with status: 204
+      else
+        respond_with status: 401
+      end
+    end
+
+    def create
+      article.user = current_user
+      article.save
+
+      respond_with article, serializer: ArticleExtendedSerializer
+    end
+
+    private
+
+    def article_params
+      params.permit(:id, :title, :text)
+    end
   end
 end

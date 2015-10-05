@@ -1,9 +1,11 @@
-class V1::DashboardController < ApplicationController
-  before_action :authenticate_user!
+module V1
+  class DashboardController < ApplicationController
+    before_action :authenticate_user!
 
-  expose(:articles) { current_user.articles }
+    expose(:articles) { current_user.articles }
 
-  def index
-    respond_with articles, each_serializer: ArticleSerializer
+    def index
+      respond_with articles, each_serializer: ArticleSerializer
+    end
   end
 end
