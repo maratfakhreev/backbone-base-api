@@ -1,7 +1,7 @@
 class V1::ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:destroy, :create]
   expose(:article, attributes: :article_params)
-  expose(:articles)
+  expose(:articles) { Article.with_users }
 
   def index
     respond_with articles, each_serializer: ArticleExtendedSerializer
