@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   end
 
   namespace :v1, defaults: { format: "json" } do
-    resources :articles, except: %i(new edit update)
     resources :dashboard, only: %i(index)
+    resources :articles, except: %i(new edit update)
+    resources :comments, only: %i(create)
 
     devise_scope :user do
       post "users/sign_in", to: 'sessions#create'
