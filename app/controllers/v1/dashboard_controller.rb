@@ -1,6 +1,6 @@
 module V1
   class DashboardController < ApplicationController
-    before_action :authenticate_user!
+    acts_as_token_authentication_handler_for User
 
     expose(:articles) { current_user.articles }
 

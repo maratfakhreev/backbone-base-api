@@ -1,6 +1,7 @@
 module V1
   class CommentsController < ApplicationController
-    before_action :authenticate_user!, only: %i(create)
+    acts_as_token_authentication_handler_for User, only: %i(create)
+
     expose(:article)
     expose(:comments, ancestor: :article)
     expose(:comment, attributes: :comments_params)

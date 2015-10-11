@@ -1,6 +1,7 @@
 module V1
   class ArticlesController < ApplicationController
-    before_action :authenticate_user!, only: %i(destroy create)
+    acts_as_token_authentication_handler_for User, only: %i(destroy create)
+
     expose(:article, attributes: :article_params)
     expose(:articles) { Article.with_users }
 
