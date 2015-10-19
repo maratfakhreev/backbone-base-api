@@ -4,5 +4,6 @@ class Article < ActiveRecord::Base
 
   scope :with_users, -> { includes(:user, comments: [:user]) }
 
-  validates :user, :title, :text, presence: true
+  validates :user, :text, presence: true
+  validates :title, length: { minimum: 3 }, presence: true
 end

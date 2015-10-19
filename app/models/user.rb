@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :articles
 
-  validates :name, presence: true
+  validates :name, length: { minimum: 3 }, presence: true
 end
