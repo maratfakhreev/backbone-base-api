@@ -2,6 +2,8 @@ class Article < ActiveRecord::Base
   belongs_to :user
   has_many :comments
 
+  paginates_per 10
+
   scope :with_users, -> { includes(:user, comments: [:user]) }
 
   validates :user, :text, presence: true
