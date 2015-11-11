@@ -3,10 +3,12 @@ module V1
     acts_as_token_authentication_handler_for User, only: %i(destroy create)
 
     expose(:article, attributes: :article_params)
-    expose(:articles) { Article.with_users }
+    expose(:articles) do |scope|
+      scope.page(params[:page]).per(params[:per_page]).with_users
+    end
 
     def index
-      respond_with articles, each_serializer: ArticleExtendedSerializer
+      respond_with articles, serializer: ArticlesPaginatedArraySerializer, adapter: :json
     end
 
     def show
