@@ -16,13 +16,13 @@ module V1
     end
 
     def destroy
-      self.article = current_user.articles.find(params[:id])
+      self.article = current_user.articles.find_by(id: params[:id])
 
       if article
         article.destroy
-        respond_with status: 204
+        head 204
       else
-        respond_with status: 401
+        head 401
       end
     end
 
